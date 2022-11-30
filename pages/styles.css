@@ -19,21 +19,13 @@ body {
     position: relative;
 }
 
-.container {
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one       */
+  
     display: flex;
-    place-content: center flex-start;
     align-items: center;
-    flex: 0 0 auto;
-    flex-flow: column nowrap;
-    gap: 10px;
-    height: fit-content;
-    max-width: 975px;
-    overflow: auto;
-    padding: 50px;
-    position: relative;
-    width: auto;
-    gap: 64px;
-}
+  }
 
 .header {    
     display: flex;
@@ -212,7 +204,7 @@ textarea {
     bottom: 20px;
     flex: 0 0 auto;
     height: auto;
-    left: 20px;
+    right: 20px;
     position: fixed;
     width: auto;
     z-index: 1;
