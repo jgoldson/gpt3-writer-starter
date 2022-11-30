@@ -112,8 +112,9 @@ const Home = () => {
             </div>
 
             <div className="form-group ml-auto mr-auto">
-              <input
-                placeholder="Enter a person here. Example: Goku"
+              <textarea
+                placeholder="Enter a person here.
+                Example: Goku"
                 className="prompt-box"
                 value={userInput}
                 onChange={onUserChangedText}
