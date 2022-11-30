@@ -47,9 +47,12 @@ const Home = () => {
   );
 
   const Page2 = () => (
-    <div className="container vertical-center">
+    <div className="container">
       <div className="row">
-        <div className="col">
+        <br></br>
+        <span></span>
+        <hr></hr>
+        <div className="col-xl-6">
           {apiOutput && (
             <div className="output">
               <div className="output-header-container">
@@ -63,7 +66,7 @@ const Home = () => {
             </div>
           )}
         </div>
-        <div className="col">
+        <div className="col-xl-6">
           {workoutOutput && (
             <div className="output">
               <div className="output-header-container">
@@ -98,7 +101,6 @@ const Home = () => {
       <Head>
         <title>Custom Workouts | GPT-3</title>
       </Head>
-      {console.log(page)}
       {page == 1 ? (
         <div className="container vertical-center">
           <div className="row">
