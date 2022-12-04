@@ -20,13 +20,7 @@ const Home = () => {
     callOpenAIEndpoints(text);
   };
 
-  const callOpenAIEndpoints = (preset) => {
-    var input;
-    if (!preset) {
-      input = userInput;
-    } else {
-      input = preset;
-    }
+  const callOpenAIEndpoints = (input) => {
     if (input < 2) {
       return;
     }
@@ -72,7 +66,10 @@ const Home = () => {
 
   const GenerateButton = ({ title }) => (
     <div className="prompt-buttons">
-      <a className="generate-button" onClick={callGenerateEndpoint}>
+      <a
+        className="generate-button"
+        onClick={() => callOpenAIEndpoints(userInput)}
+      >
         <div className="generate">
           {isGenerating ? <span className="loader"></span> : <p>{title}</p>}
         </div>
