@@ -8,36 +8,36 @@ const openai = new OpenAIApi(configuration);
 
 const generateAction = async (req, res) => {
   // Run first prompt
-  const firstPrompt = `Write me a short motivational speech that inspires me to workout in the style of ${req.body.userInput}.`;
+  const firstPrompt = `Write me a personal motivational speech that inspires me to workout in the style of ${req.body.userInput}. The speech must be shorter than 3 paragraphs in length.
+  
+  ${req.body.userInput}: `;
 
   const baseCompletion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: `${firstPrompt}`,
     temperature: 0.9,
-    max_tokens: 250,
+    max_tokens: 500,
   });
 
   const basePromptOutput = baseCompletion.data.choices.pop();
 
   // I build Prompt #2.
   const secondPrompt = `
-   Take the motivational speech from the speeker below and generate a workout plan for today. Be specific with what excercises should be done.
+   Generate a workout plan for today from the perspective of the speeker below. Be specific with what excercises should be done, how many and for how long.
  
    Speeker: ${req.body.userInput}
  
-   Motivational Speech: ${basePromptOutput.text}
- 
-   Todays Workout:
-   `;
+   The workout plan should be in the following format: # Excercise | reps x sets OR time | Reason
+   Todays Workout:`;
 
   // I call the OpenAI API a second time with Prompt #2
   const secondPromptCompletion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: `${secondPrompt}`,
     // I set a higher temperature for this one. Up to you!
-    temperature: 0.8,
+    temperature: 0.9,
     // I also increase max_tokens.
-    max_tokens: 1250,
+    max_tokens: 500,
   });
 
   // Get the output

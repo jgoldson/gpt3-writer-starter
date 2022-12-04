@@ -22,9 +22,14 @@ body {
 .vertical-center {
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one       */
-  
+  justify-content: center;
     display: flex;
     align-items: center;
+  }
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 .header {    
@@ -307,15 +312,23 @@ textarea {
     display: flex;
     /* max-width: 25%; */
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     flex-shrink: 0;
     transform: none;
 }
 
 .output-content p {
-    text-align: center;
+    text-align: left;
     white-space: pre-line;
     color: rgba(255, 255, 255, 0.5);
+    margin: 0px 20px;
+}
+
+.label-text {
+    text-align: left;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.706);
+    padding: 20px 0px 0px;
 }
 
 @media (min-width: 810px) and (max-width: 1199px) {
