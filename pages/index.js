@@ -133,7 +133,6 @@ const Home = () => {
                 <Image
                   loader={() => imageURL}
                   src={imageURL}
-                  alt="https://imgs.search.brave.com/Si8uhmyIBL1ViEuU0tP09IR50M5aRclh05jsckdHUH4/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly92aWdu/ZXR0ZS53aWtpYS5u/b2Nvb2tpZS5uZXQv/ZHJhZ29uYmFsbHdo/YXRpZnMvaW1hZ2Vz/L2MvYzAvR29rdV9z/YWdhX3NhaXlhamlu/LnBuZy9yZXZpc2lv/bi9sYXRlc3Q_Y2I9/MjAxODA5MjkyMzU5/MjA"
                   height="256"
                   width="256"
                 />
@@ -149,7 +148,7 @@ const Home = () => {
               }}
             >
               <div className="generate ">
-                <p>↩</p>
+                <p>Back</p>
               </div>
             </a>
           </div>

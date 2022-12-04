@@ -11,7 +11,7 @@ const generateImage = async (req, res) => {
   console.log(req.body.text);
   try {
     const response = await openai.createImage({
-      prompt: `A workout training coach that looks like ${req.body.text}`,
+      prompt: `${req.body.text} in the style of a fitness coach with a black background`,
       n: 1,
       size: "256x256",
     });
