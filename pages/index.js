@@ -26,14 +26,15 @@ const Home = () => {
     }
     setCoach(input);
     setPage(2);
-    callGenerateEndpoint(input);
+    callGeneratePlan(input);
     callGenerateImage(input);
+    callGenerateMotivation(input);
   };
 
-  const callGenerateEndpoint = async ({ input }) => {
+  const callGeneratePlan = async ({ input }) => {
     setIsGenerating(true);
     console.log("Calling OpenAI...");
-    const response = await fetch("/api/generate", {
+    const response = await fetch("/api/generatePlan", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,10 +42,27 @@ const Home = () => {
       body: JSON.stringify({ input }),
     });
     const data = await response.json();
-    const { motivation, workout } = data;
+    const { workout } = data;
+    console.log("Got Response");
+    setWorkoutOutput(`${workout.text}`);
+    setIsGenerating(false);
+    setPage(2);
+  };
+
+  const callGenerateMotivation = async ({ input }) => {
+    setIsGenerating(true);
+    console.log("Calling OpenAI...");
+    const response = await fetch("/api/generateMotivation", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ input }),
+    });
+    const data = await response.json();
+    const { motivation } = data;
     console.log("Got Response");
     setApiOutput(`${motivation.text}`);
-    setWorkoutOutput(`${workout.text}`);
     setIsGenerating(false);
     setPage(2);
   };
@@ -62,6 +80,8 @@ const Home = () => {
     const data = await response.json();
     console.log(data.image_url);
     setImageURL(data.image_url);
+    setIsGenerating(false);
+    setPage(2);
   };
 
   const GenerateButton = ({ title }) => (
@@ -90,6 +110,15 @@ const Home = () => {
     </div>
   );
 
+  const backButtonPressed = () => {
+    setApiOutput("");
+    setWorkoutOutput("");
+    setUserInput("");
+    setImageURL("");
+
+    setPage(1);
+  };
+
   const Page2 = () => (
     <div className="container">
       {isGenerating ? (
@@ -99,7 +128,7 @@ const Home = () => {
       ) : (
         <div className="row">
           <div className="col-xl-6">
-            {apiOutput && (
+            {apiOutput ? (
               <div className="output">
                 <div className="output-header-container">
                   <div className="output-header">
@@ -110,11 +139,24 @@ const Home = () => {
                   <p>{apiOutput}</p>
                 </div>
               </div>
+            ) : (
+              <span className="loader"></span>
+            )}
+            {imageURL && (
+              <div className="center">
+                <Image
+                  loader={() => imageURL}
+                  src={imageURL}
+                  alt="Coach"
+                  height="256"
+                  width="256"
+                />
+              </div>
             )}
           </div>
           <div className="col-xl-6">
             <div className="row">
-              {workoutOutput && (
+              {workoutOutput ? (
                 <div className="output">
                   <div className="output-header-container">
                     <div className="output-header">
@@ -125,26 +167,17 @@ const Home = () => {
                     <p>{workoutOutput}</p>
                   </div>
                 </div>
+              ) : (
+                <span className="loader"></span>
               )}
             </div>
-
-            {imageURL && (
-              <div className="center">
-                <Image
-                  loader={() => imageURL}
-                  src={imageURL}
-                  height="256"
-                  width="256"
-                />
-              </div>
-            )}
           </div>
 
           <div className="badge-container grow me-auto">
             <a
               className="generate-button"
               onClick={() => {
-                setPage(1);
+                backButtonPressed();
               }}
             >
               <div className="generate ">
