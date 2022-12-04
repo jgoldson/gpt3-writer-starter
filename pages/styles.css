@@ -135,6 +135,20 @@ textarea {
     width: 100%;
 }
 
+.preset-buttons {
+    display: flex;
+    place-content: center;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    flex-flow: row nowrap;
+    gap: 12px;
+    height: min-content;
+    padding: 6px;
+    position: relative;
+    width: min-content;
+}
+
 .key-stroke {
     outline: none;
     display: flex;

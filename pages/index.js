@@ -78,7 +78,7 @@ const Home = () => {
   );
 
   const PresetButton = ({ person }) => (
-    <div className="prompt-buttons">
+    <div className="preset-buttons">
       <a
         className="generate-button"
         onClick={() => presetButtonPressed(person)}
@@ -165,25 +165,17 @@ const Home = () => {
       </Head>
       {page == 1 ? (
         <div className="container vertical-center">
-          <div className="row">
-            <div className="header">
-              <div className="header-title">
-                <h1>Workout Of The Day</h1>
-              </div>
-              <div className="header-subtitle">
-                <h2>Choose a trainer and get a custom workout today</h2>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <PresetButton person="Goku" />
-                </div>
-                <div className="col">
-                  <PresetButton person="Schwarzenegger" />
-                </div>
-                <div className="col">
-                  <PresetButton person="Superman" />
-                </div>
-              </div>
+          <div className="header">
+            <div className="header-title">
+              <h1>Workout Of The Day</h1>
+            </div>
+            <div className="header-subtitle">
+              <h2>Choose a trainer and get a custom workout today</h2>
+            </div>
+            <div className="row center">
+              <PresetButton person="Goku" />
+              <PresetButton person="Schwarzenegger" />
+              <PresetButton person="Superman" />
             </div>
 
             <div className="form-group ml-auto mr-auto">
