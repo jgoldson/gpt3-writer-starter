@@ -11,9 +11,9 @@ const generateImage = async (req, res) => {
   console.log(req.body.text);
   try {
     const response = await openai.createImage({
-      prompt: req.body.text,
+      prompt: `A workout training coach that looks like ${req.body.text}`,
       n: 1,
-      size: "1024x1024",
+      size: "256x256",
     });
     const image_url = response.data.data[0].url;
     console.log("GOT IMAGE");
