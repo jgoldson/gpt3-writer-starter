@@ -26,9 +26,7 @@ const Home = () => {
     }
     setCoach(input);
     setPage(2);
-    callGeneratePlan(input);
-    callGenerateImage(input);
-    callGenerateMotivation(input);
+    callAnswerQuestion(input);
   };
 
   const callGeneratePlan = async ({ input }) => {
@@ -49,10 +47,10 @@ const Home = () => {
     setPage(2);
   };
 
-  const callGenerateMotivation = async ({ input }) => {
+  const callAnswerQuestion = async (input) => {
     setIsGenerating(true);
-    console.log("Calling OpenAI...");
-    const response = await fetch("/api/generateMotivation", {
+    console.log("Calling OpenAI with input...", input);
+    const response = await fetch("/api/answerQuestion", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,9 +58,9 @@ const Home = () => {
       body: JSON.stringify({ input }),
     });
     const data = await response.json();
-    const { motivation } = data;
-    console.log("Got Response");
-    setApiOutput(`${motivation.text}`);
+    console.log(data);
+
+    setApiOutput(`${data.answer}`);
     setIsGenerating(false);
     setPage(2);
   };
@@ -127,7 +125,7 @@ const Home = () => {
         </div>
       ) : (
         <div className="row">
-          <div className="col-xl-6">
+          <div className="col">
             {apiOutput ? (
               <div className="output">
                 <div className="output-header-container">
@@ -154,24 +152,6 @@ const Home = () => {
               </div>
             )}
           </div>
-          <div className="col-xl-6">
-            <div className="row">
-              {workoutOutput ? (
-                <div className="output">
-                  <div className="output-header-container">
-                    <div className="output-header">
-                      <h3>Todays Workout</h3>
-                    </div>
-                  </div>
-                  <div className="output-content">
-                    <p>{workoutOutput}</p>
-                  </div>
-                </div>
-              ) : (
-                <span className="loader"></span>
-              )}
-            </div>
-          </div>
 
           <div className="badge-container grow me-auto">
             <a
@@ -193,28 +173,19 @@ const Home = () => {
   return (
     <div className="root">
       <Head>
-        <title>Custom Workouts | GPT-3</title>
+        <title>LoL GPT</title>
       </Head>
       {page == 1 ? (
         <div className="container vertical-center">
           <div className="header">
             <div className="header-title">
-              <h1>Workout Of The Day</h1>
-            </div>
-            <div className="header-subtitle">
-              <h2>Choose a trainer and get a custom workout today</h2>
-            </div>
-            <div className="row center">
-              <PresetButton person="Goku" />
-              <PresetButton person="Schwarzenegger" />
-              <PresetButton person="Superman" />
+              <h1>Ask any question about League of Legends</h1>
             </div>
 
             <div className="form-group ml-auto mr-auto">
-              <p className="label label-text">Or bring your own!</p>
               <textarea
-                placeholder="Enter a person here.
-                Example: Goku"
+                placeholder="Enter question here.
+                Example: Who is an easy jungler to learn?"
                 className="prompt-box"
                 value={userInput}
                 onChange={onUserChangedText}
